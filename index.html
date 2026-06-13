@@ -59,6 +59,35 @@
       border-left: 4px solid #2b6cb0; 
       line-height: 1.6;
     }
+    /* NEW TABLE STYLES */
+    .edu-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 0.95rem;
+    }
+    .edu-table th {
+      background: #e6f0ff;
+      color: #2b6cb0;
+      padding: 12px;
+      text-align: left;
+      border-bottom: 2px solid #2b6cb0;
+    }
+    .edu-table td {
+      padding: 12px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .edu-table tr:hover {
+      background: #f7fafc;
+    }
+    .score-badge {
+      background: #48bb78;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: bold;
+      display: inline-block;
+    }
   </style>
 </head>
 <body>
@@ -79,18 +108,36 @@
     </div>
     
     <h2>Education</h2>
-    <div class="item">
-      <div class="item-title">B.Tech - Computer Science & Engineering <span class="score">86.4%</span><span class="year">2023 - 2027</span></div>
-      <div class="item-subtitle">Sri Mittapalli College of Engineering, Guntur | Final Year</div>
-    </div>
-    <div class="item">
-      <div class="item-title">Intermediate - EET <span class="score">89%</span><span class="year">2021 - 2023</span></div>
-      <div class="item-subtitle">NLVRGSRV</div>
-    </div>
-    <div class="item">
-      <div class="item-title">SSC - 10th Class <span class="score">100%</span><span class="year">2021</span></div>
-      <div class="item-subtitle">ZPH School</div>
-    </div>
+    <table class="edu-table">
+      <thead>
+        <tr>
+          <th>Qualification</th>
+          <th>Institution</th>
+          <th>Year</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>B.Tech - CSE</strong></td>
+          <td>Sri Mittapalli College of Engineering, Guntur</td>
+          <td>2023 - 2027</td>
+          <td><span class="score-badge">86.4%</span></td>
+        </tr>
+        <tr>
+          <td><strong>Intermediate - EET</strong></td>
+          <td>NLVRGSRV</td>
+          <td>2021 - 2023</td>
+          <td><span class="score-badge">89%</span></td>
+        </tr>
+        <tr>
+          <td><strong>SSC - 10th Class</strong></td>
+          <td>ZPH School</td>
+          <td>2021</td>
+          <td><span class="score-badge">100%</span></td>
+        </tr>
+      </tbody>
+    </table>
     
     <h2>Internship Experience</h2>
     <div class="item">
