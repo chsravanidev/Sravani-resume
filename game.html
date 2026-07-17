@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="te">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sravani Rock Paper Scissors Game</title>
+    <title>Sravani Rock Paper Scissors</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
@@ -19,23 +20,225 @@
             align-items: center;
             padding: 20px;
         }
-        .game-container {
+
+       .game-container {
             background: white;
             border-radius: 20px;
-            padding: 30px;
+            padding: 40px 30px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             text-align: center;
             max-width: 500px;
             width: 100%;
         }
+
         h1 {
             color: #667eea;
             margin-bottom: 10px;
-            font-size: 28px;
+            font-size: 32px;
         }
-        .subtitle {
+
+       .subtitle {
             color: #666;
             margin-bottom: 30px;
             font-size: 14px;
         }
-        .score
+
+       .score-board {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+       .score {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+       .score span {
+            display: block;
+            font-size: 36px;
+            color: #667eea;
+            margin-top: 5px;
+        }
+
+       .choices {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+       .choice-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 15px;
+            padding: 20px;
+            font-size: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+       .choice-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.6);
+        }
+
+       .choice-btn:active {
+            transform: translateY(0);
+        }
+
+       .result {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            min-height: 35px;
+        }
+
+       .win { color: #28a745; }
+       .lose { color: #dc3545; }
+       .draw { color: #ffc107; }
+
+       .moves {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+       .move-display {
+            font-size: 40px;
+            margin: 10px 0;
+        }
+
+       .reset-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+       .reset-btn:hover {
+            background: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>🎮 Rock Paper Scissors</h1>
+        <p class="subtitle">Made by Sravani ❤️</p>
+
+        <div class="score-board">
+            <div class="score">
+                You
+                <span id="user-score">0</span>
+            </div>
+            <div class="score">
+                Computer
+                <span id="computer-score">0</span>
+            </div>
+        </div>
+
+        <div class="moves">
+            <div>
+                <div>Your Choice</div>
+                <div class="move-display" id="user-choice">❓</div>
+            </div>
+            <div>
+                <div>Computer</div>
+                <div class="move-display" id="computer-choice">❓</div>
+            </div>
+        </div>
+
+        <div class="result" id="result">Choose your move!</div>
+
+        <div class="choices">
+            <button class="choice-btn" onclick="playGame('rock')">✊</button>
+            <button class="choice-btn" onclick="playGame('paper')">✋</button>
+            <button class="choice-btn" onclick="playGame('scissors')">✌️</button>
+        </div>
+
+        <button class="reset-btn" onclick="resetGame()">Reset Score</button>
+    </div>
+
+    <script>
+        let userScore = 0;
+        let computerScore = 0;
+
+        const choices = {
+            rock: '✊',
+            paper: '✋',
+            scissors: '✌️'
+        };
+
+        function playGame(userChoice) {
+            const computerChoice = getComputerChoice();
+
+            document.getElementById('user-choice').textContent = choices[userChoice];
+            document.getElementById('computer-choice').textContent = choices[computerChoice];
+
+            const result = getWinner(userChoice, computerChoice);
+            displayResult(result);
+        }
+
+        function getComputerChoice() {
+            const options = ['rock', 'paper', 'scissors'];
+            const randomIndex = Math.floor(Math.random() * 3);
+            return options[randomIndex];
+        }
+
+        function getWinner(user, computer) {
+            if (user === computer) return 'draw';
+
+            if (
+                (user === 'rock' && computer === 'scissors') ||
+                (user === 'paper' && computer === 'rock') ||
+                (user === 'scissors' && computer === 'paper')
+            ) {
+                userScore++;
+                document.getElementById('user-score').textContent = userScore;
+                return 'win';
+            } else {
+                computerScore++;
+                document.getElementById('computer-score').textContent = computerScore;
+                return 'lose';
+            }
+        }
+
+        function displayResult(result) {
+            const resultDiv = document.getElementById('result');
+
+            if (result === 'win') {
+                resultDiv.textContent = 'You Win! 🎉';
+                resultDiv.className = 'result win';
+            } else if (result === 'lose') {
+                resultDiv.textContent = 'You Lose! 😢';
+                resultDiv.className = 'result lose';
+            } else {
+                resultDiv.textContent = "It's a Draw! 🤝";
+                resultDiv.className = 'result draw';
+            }
+        }
+
+        function resetGame() {
+            userScore = 0;
+            computerScore = 0;
+            document.getElementById('user-score').textContent = '0';
+            document.getElementById('computer-score').textContent = '0';
+            document.getElementById('user-choice').textContent = '❓';
+            document.getElementById('computer-choice').textContent = '❓';
+            document.getElementById('result').textContent = 'Choose your move!';
+            document.getElementById('result').className = 'result';
+        }
+    </script>
+</body>
+</html>
